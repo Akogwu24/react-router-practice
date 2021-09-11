@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import { NotFound } from './pages/404';
@@ -8,14 +9,20 @@ import Post from './pages/Post';
 import Profile from './pages/Profile';
 
 function App() {
+  const [login, setLogin] = useState(false);
   return (
-    <BrowserRouter basename='/basename_akogwu'>
+    <BrowserRouter>
       <div className='App'>
         <Header />
+        <button onClick={() => setLogin(!login)}>
+          {login ? 'logout' : 'login'}
+        </button>
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/about' component={About} />
-          <Route path='/profile' component={Profile} />
+          <Route path='/profile'>
+            <Profile />
+          </Route>
           <Route path='/post/:id' component={Post} />
           <Route component={NotFound} />
         </Switch>
